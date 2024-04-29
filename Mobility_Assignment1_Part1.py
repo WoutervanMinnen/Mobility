@@ -23,6 +23,8 @@ result_table.loc['Total fun'] = result_table.sum()
 result_table_old['Total gend'] = result_table_old.sum(axis=1)
 result_table_old.loc['Total fun'] = result_table_old.sum()
 
+# This a header that joeri has to learn
+
 # Print the result
 print("Percentage of population in each age category for male and female:")
 print("------------------------- Base data -------------------------")
