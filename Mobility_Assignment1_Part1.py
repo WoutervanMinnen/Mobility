@@ -10,8 +10,10 @@ filtered_df_base = df_base[df_base['Actnr'] == 1]
 filtered_df_old = df_old[df_old['Actnr'] == 1]
 
 # Group by age category and gender, and calculate the percentage of population
-result = filtered_df_base.groupby(['Age', 'Gend']).size() / filtered_df_base.groupby('Gend').size() * 100
-result_old = filtered_df_old.groupby(['Age', 'Gend']).size() / filtered_df_old.groupby('Gend').size() * 100
+# result = filtered_df_base.groupby(['Age', 'Gend']).size() / filtered_df_base.groupby('Gend').size() * 100
+# result_old = filtered_df_old.groupby(['Age', 'Gend']).size() / filtered_df_old.groupby('Gend').size() * 100
+result = filtered_df_base.groupby(['Age', 'Gend']).size() / len(filtered_df_base) * 100
+result_old = filtered_df_old.groupby(['Age', 'Gend']).size() / len(filtered_df_old) * 100
 
 # Unstack to create a nice table, fill NaN values with 0, and add total column and row
 result_table = result.unstack().fillna(0)
@@ -23,7 +25,8 @@ result_table.loc['Total fun'] = result_table.sum()
 result_table_old['Total gend'] = result_table_old.sum(axis=1)
 result_table_old.loc['Total fun'] = result_table_old.sum()
 
-# This a header that joeri has to learn
+result_table = result_table.round(2)
+result_table_old = result_table_old.round(2)
 
 # Print the result
 print("Percentage of population in each age category for male and female:")
