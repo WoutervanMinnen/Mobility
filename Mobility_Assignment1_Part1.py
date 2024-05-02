@@ -19,11 +19,11 @@ result_old = filtered_df_old.groupby(['Age', 'Gend']).size() / len(filtered_df_o
 result_table = result.unstack().fillna(0)
 result_table_old = result_old.unstack().fillna(0)
 
-result_table['Total gend'] = result_table.sum(axis=1)
-result_table.loc['Total fun'] = result_table.sum()
+result_table['Total'] = result_table.sum(axis=1)
+result_table.loc['Total'] = result_table.sum()
 
-result_table_old['Total gend'] = result_table_old.sum(axis=1)
-result_table_old.loc['Total fun'] = result_table_old.sum()
+result_table_old['Total'] = result_table_old.sum(axis=1)
+result_table_old.loc['Total'] = result_table_old.sum()
 
 result_table = result_table.round(2)
 result_table_old = result_table_old.round(2)
