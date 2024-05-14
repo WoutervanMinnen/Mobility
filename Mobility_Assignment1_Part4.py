@@ -46,8 +46,8 @@ result_table_old.loc['Total'] = result_table_old.sum()
 result_table_old.at['Total', 'Mode'] = 'Total'
 
 # Convert DataFrames to lists for tabulate
-result_table_base_list = result_table_base.values.tolist()
-result_table_old_list = result_table_old.values.tolist()
+result_table_base_list = result_table_base#.values.tolist()
+result_table_old_list = result_table_old#.values.tolist()
 
 # Print the result using tabulate
 print("Frequency and percentage of population in each Mode category:")
@@ -56,14 +56,13 @@ print(tabulate(result_table_base_list, headers=result_table_base.columns, tablef
 print("\n------------------------- Old data -------------------------")
 print(tabulate(result_table_old_list, headers=result_table_old.columns, tablefmt='grid'))
 
-
 # Save the tables to LaTeX format
 result_table_latex = result_table_base_list.to_latex(index=True, escape=False, float_format="%.2f")
 result_table_old_latex = result_table_old_list.to_latex(index=True, escape=False, float_format="%.2f")
 
 # Modify LaTeX code to include lines and remove {lrrr} formatting
-result_table_latex = result_table_latex.replace('\\begin{tabular}{llrrr}', '\\begin{table}[htbp]\n\\centering\n\\caption{Base Data}\n\\label{tab:base_data}\n\\begin{tabular}{|c|' + '|'.join(['c']*len(result_table_base_list.columns)) + '|}\n')
-result_table_old_latex = result_table_old_latex.replace('\\begin{tabular}{llrrr}', '\\begin{table}[htbp]\n\\centering\n\\caption{Old Data}\n\\label{tab:old_data}\n\\begin{tabular}{|c|' + '|'.join(['c']*len(result_table_old_list.columns)) + '|}\n')
+result_table_latex = result_table_latex.replace('\\begin{tabular}{llrr}', '\\begin{table}[htbp]\n\\centering\n\\caption{Base Data}\n\\label{tab:base_data}\n\\begin{tabular}{|c|' + '|'.join(['c']*len(result_table_base_list.columns)) + '|}\n')
+result_table_old_latex = result_table_old_latex.replace('\\begin{tabular}{llrr}', '\\begin{table}[htbp]\n\\centering\n\\caption{Old Data}\n\\label{tab:old_data}\n\\begin{tabular}{|c|' + '|'.join(['c']*len(result_table_old_list.columns)) + '|}\n')
 result_table_latex = result_table_latex.replace('\\toprule', '\hline')
 result_table_latex = result_table_latex.replace('\\midrule', '\hline')
 result_table_latex = result_table_latex.replace('\\bottomrule', '\hline\n\\end{tabular}\n\\end{table}\n')
@@ -79,4 +78,4 @@ with open('Assignment4_base.tex', 'w') as f:
 with open('Assignment4_old.tex', 'w') as f:
     f.write(result_table_old_latex)
 
-print("Tables saved as Assignment4_base.tex and Assignment4_old.tex")
+print("Tables saved as Assignment1_base.tex and Assignment1_old.tex")
