@@ -53,3 +53,28 @@ print(tabulate(result_table_base_total, headers='keys', tablefmt='pretty'))
 print("===================================================================")
 print("------------------------- Old data -------------------------")
 print(tabulate(result_table_old_total, headers='keys', tablefmt='pretty'))
+
+
+# Save the tables to LaTeX format
+result_table_latex = result_table_base_total.to_latex(index=True, escape=False, float_format="%.2f")
+result_table_old_latex = result_table_old_total.to_latex(index=True, escape=False, float_format="%.2f")
+
+# Modify LaTeX code to include lines and remove {lrrr} formatting
+result_table_latex = result_table_latex.replace('\\begin{tabular}{lrr}', '\\begin{table}[htbp]\n\\centering\n\\caption{Base Data}\n\\label{tab:base_data}\n\\begin{tabular}{|c|' + '|'.join(['c']*len(result_table_base_total.columns)) + '|}\n')
+result_table_old_latex = result_table_old_latex.replace('\\begin{tabular}{lrr}', '\\begin{table}[htbp]\n\\centering\n\\caption{Old Data}\n\\label{tab:old_data}\n\\begin{tabular}{|c|' + '|'.join(['c']*len(result_table_old_total.columns)) + '|}\n')
+result_table_latex = result_table_latex.replace('\\toprule', '\hline')
+result_table_latex = result_table_latex.replace('\\midrule', '\hline')
+result_table_latex = result_table_latex.replace('\\bottomrule', '\hline\n\\end{tabular}\n\\end{table}\n')
+
+result_table_old_latex = result_table_old_latex.replace('\\toprule', '\hline')
+result_table_old_latex = result_table_old_latex.replace('\\midrule', '\hline')
+result_table_old_latex = result_table_old_latex.replace('\\bottomrule', '\hline\n\\end{tabular}\n\\end{table}\n')
+
+# Write the modified LaTeX code to files with the desired names
+with open('Assignment5_base.tex', 'w') as f:
+    f.write(result_table_latex)
+
+with open('Assignment5_old.tex', 'w') as f:
+    f.write(result_table_old_latex)
+
+print("Tables saved as Assignment1_base.tex and Assignment1_old.tex")
